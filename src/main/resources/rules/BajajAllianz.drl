@@ -1,0 +1,56 @@
+import com.project.droolsdemo.models.CarInsuranceDetails;
+import java.lang.*;
+import java.math.BigDecimal;
+import com.project.droolsdemo.models.Insurer;
+ 
+rule "Criteria Based on Manufacturing Date"
+lock-on-active true
+salience 10
+dialect "java"
+
+	when
+	    $carInfo:CarInsuranceDetails(manufacturedYear >= "2007" , $amt:cost)
+	    $list: ArrayList()
+    then
+    	System.out.println("RULE 1");
+    	$list.add(new Insurer("Bajaj Allianz",$amt));
+        update($list);   
+end
+
+rule "BajajAllianz-Criteria Based on Claims Number - 1"
+	when
+		$carInfo:CarInsuranceDetails(claims >= 1 && <3 , $amt:cost)	
+		$list: ArrayList()
+		$insurer:Insurer(name == "Bajaj Allianz") from $list
+		
+	then
+		System.out.println("RULE 2")
+	    $amt=$amt*0.90
+	   	$insurer.setAmount($amt)
+end
+
+
+rule "BajajAllianz-Criteria Based on Claims Number - 2"
+	when
+		$carInfo:CarInsuranceDetails(claims >= 3 , $amt:cost)	
+		$list: ArrayList()
+		$insurer:Insurer(name == "Bajaj Allianz") from $list
+	then
+		System.out.println("RULE 3")
+	    $amt=$amt*0.75
+	    $insurer.setAmount($amt)
+end   
+
+rule "BajajAllianz-Criteria Based on Claims and Use - 1"
+	when
+		$carInfo:CarInsuranceDetails(claims >= 3 ,use == "business", $amt:cost)	
+		$list: ArrayList()
+		$insurer:Insurer(name == "Bajaj Allianz") from $list
+	then
+		System.out.println("RULE 4")
+	    $amt=$amt*0.5
+	    $insurer.setAmount($amt)
+end 
+
+
+	   
