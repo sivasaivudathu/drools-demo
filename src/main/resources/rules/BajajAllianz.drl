@@ -3,8 +3,10 @@ import java.lang.*;
 import java.math.BigDecimal;
 import com.project.droolsdemo.models.Insurer;
  
+ruleflow-group "default"
+ 
 rule "Criteria Based on Manufacturing Date"
-lock-on-active true
+lock-on-active 
 salience 10
 dialect "java"
 
@@ -13,11 +15,12 @@ dialect "java"
 	    $list: ArrayList()
     then
     	System.out.println("RULE 1");
-    	$list.add(new Insurer("Bajaj Allianz",$amt));
+    	$list.add(new Insurer("Bajaj Allianz",$amt*0.5,"50%"));
         update($list);   
 end
 
 rule "BajajAllianz-Criteria Based on Claims Number - 1"
+salience 9
 	when
 		$carInfo:CarInsuranceDetails(claims >= 1 && <3 , $amt:cost)	
 		$list: ArrayList()
@@ -25,8 +28,10 @@ rule "BajajAllianz-Criteria Based on Claims Number - 1"
 		
 	then
 		System.out.println("RULE 2")
-	    $amt=$amt*0.90
+	    $amt=$amt*0.45
 	   	$insurer.setAmount($amt)
+	   	$insurer.setPercentage("45%")
+	   	
 end
 
 
@@ -37,8 +42,9 @@ rule "BajajAllianz-Criteria Based on Claims Number - 2"
 		$insurer:Insurer(name == "Bajaj Allianz") from $list
 	then
 		System.out.println("RULE 3")
-	    $amt=$amt*0.75
+	    $amt=$amt*0.40
 	    $insurer.setAmount($amt)
+	    $insurer.setPercentage("40%")
 end   
 
 rule "BajajAllianz-Criteria Based on Claims and Use - 1"
@@ -48,9 +54,11 @@ rule "BajajAllianz-Criteria Based on Claims and Use - 1"
 		$insurer:Insurer(name == "Bajaj Allianz") from $list
 	then
 		System.out.println("RULE 4")
-	    $amt=$amt*0.5
+	    $amt=$amt*0.3
 	    $insurer.setAmount($amt)
+	    $insurer.setPercentage("30%")
 end 
+
 
 
 	   

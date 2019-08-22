@@ -12,15 +12,18 @@ public class Insurer {
 	private  String name;
 	
 	private  double amount;
+	
+	private String percentage;
 
 	public Insurer() {
 		
 	}
 	
-	public Insurer(String name, double amount) {
+	public Insurer(String name, double amount,String percentage) {
 		super();
 		this.name = name;
 		this.amount = amount;
+		this.percentage = percentage;
 	}
 
 	public String getName() {
@@ -31,12 +34,20 @@ public class Insurer {
 		this.name = name;
 	}
 
-	public double getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
 	public void setAmount(double amount) {
 		this.amount = amount;
+	}
+
+	public String getPercentage() {
+		return percentage;
+	}
+
+	public void setPercentage(String percentage) {
+		this.percentage = percentage;
 	}
 
 }

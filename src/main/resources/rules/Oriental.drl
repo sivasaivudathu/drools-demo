@@ -1,0 +1,66 @@
+import com.project.droolsdemo.models.CarInsuranceDetails;
+import java.lang.*;
+import java.math.BigDecimal;
+import com.project.droolsdemo.models.Insurer;
+ 
+ 
+ruleflow-group "Bajaj Allianz"
+  
+rule "Oriental-Criteria Based on Manufacturing Date"
+
+lock-on-active true
+salience 10
+dialect "java"
+
+	when
+	    $carInfo:CarInsuranceDetails(manufacturedYear >= "2007" , $amt:cost)
+	    $list: ArrayList()
+    then
+    	System.out.println("Oriental RULE 1");
+    	//$list.add(new Insurer("Oriental",$amt));
+        modify($list){add(new Insurer("Oriental",$amt*0.25,"25%"))};   
+end
+
+rule "Oriental-Criteria Based on Claims Number - 1"
+	when
+		$carInfo:CarInsuranceDetails(claims >= 1 && <3 , $amt:cost)	
+		$list: ArrayList()
+		$insurer:Insurer(name == "Oriental") from $list
+		
+	then
+		System.out.println("Oriental RULE 2")
+	    $amt=$amt*0.20
+	   	$insurer.setAmount($amt)
+	   	$insurer.setPercentage("20%")
+	   	
+end
+
+
+rule "Oriental-Criteria Based on Claims Number - 2"
+	when
+		$carInfo:CarInsuranceDetails(claims >= 3 , $amt:cost)	
+		$list: ArrayList()
+		$insurer:Insurer(name == "Oriental") from $list
+	then
+		System.out.println("Oriental RULE 3")
+	    $amt=$amt*0.15
+	    $insurer.setAmount($amt)
+	    $insurer.setPercentage("15%")
+end   
+
+rule "Oriental-BajajAllianz-Criteria Based on Claims and Use - 1"
+	when
+		$carInfo:CarInsuranceDetails(claims >= 3 ,use == "business", $amt:cost)	
+		$list: ArrayList()
+		$insurer:Insurer(name == "Oriental") from $list
+	then
+		System.out.println("Oriental RULE 4")
+	    $amt=$amt*0.10
+	    $insurer.setAmount($amt)
+	    $insurer.setPercentage("10%")
+end 
+
+
+
+
+	   

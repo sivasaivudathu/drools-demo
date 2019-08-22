@@ -3,10 +3,13 @@
  */
 package com.project.droolsdemo.models;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author sivasaiv
  *
  */
+
 public class CarInsuranceDetails {
 
 	private int age;
@@ -17,18 +20,22 @@ public class CarInsuranceDetails {
 	
 	private int drivingExperience;
 	
+	@NotNull
     private int	claims;
     
 	private int latePayment;
 	
 	private int previouCoverage;
 	
+	@NotNull(message = "manufacturedyear cannot be empty")
 	private String manufacturedYear;
 	
 	private String type;
 	
+	@NotNull
 	private String  use;
 	
+	@NotNull
 	private double cost;
 	
 	private int annualMiles;
@@ -128,7 +135,5 @@ public class CarInsuranceDetails {
 	public void setCost(double cost) {
 		this.cost = cost;
 	}
-
-	
 	
 }

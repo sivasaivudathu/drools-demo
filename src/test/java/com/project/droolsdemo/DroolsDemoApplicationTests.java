@@ -45,17 +45,24 @@ public class DroolsDemoApplicationTests {
 	    public void getInsuranceproiders() {
 	    	
 	    	CarInsuranceDetails details = new CarInsuranceDetails();
-	    	details.setManufacturedYear("1999");
+	    	details.setManufacturedYear("2010");
 	    	details.setCost(500000);
-	    	details.setClaims(6);
+	    	details.setClaims(2);
 	    	details.setUse("personal");
 	    	
-	    	List<Insurer> result = service.insuranceProviders(details);
+	    	List<Insurer> result = service.insuranceProviders(details,"default");
 	    	System.out.println(result.size());
 	    
 	    	result.forEach(insurer -> {
-	    		System.out.println(insurer.getName()+" : "+ insurer.getAmount());
+	    		System.out.println(insurer.getName()+" : "+ insurer.getAmount()+" : "+insurer.getPercentage());
 	    	});
+	    	
+	    	List<Insurer> result2 = service.insuranceProviders(details,"Bajaj Allianz");
+	    
+	    	result2.forEach(insurer -> {
+	    		System.out.println(insurer.getName()+" : "+ insurer.getAmount()+" : "+insurer.getPercentage());
+	    	});
+	    	
 	    }
 
 }
