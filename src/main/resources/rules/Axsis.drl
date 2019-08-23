@@ -5,9 +5,9 @@ import com.project.droolsdemo.models.Insurer;
 
 dialect "mvel" 
 
-ruleflow-group "Tata"
+ruleflow-group "Icici"
 
-rule "National-Criteria Based on Manufacturing Date"
+rule "Axsis-Criteria Based on Manufacturing Date"
 lock-on-active true
 salience 10
 
@@ -17,15 +17,15 @@ dialect "java"
 	    $list: ArrayList()
     then
     	System.out.println("RULE 1");
-    	$list.add(new Insurer("National",$amt*0.3,"30%"));
+    	$list.add(new Insurer("Axsis",$amt*0.3,"30%"));
         update($list);
 end
 
-rule "National-Criteria Based on Claims Number - 1"
+rule "Axsis-Criteria Based on Claims Number - 1"
 	when
 		$carInfo:CarInsuranceDetails(claims >= 1 && <3 , $amt:cost)	
 		$list: ArrayList()
-		$insurer:Insurer(name == "National") from $list
+		$insurer:Insurer(name == "Axsis") from $list
 	then
 		System.out.println("RULE 2")
 	    $amt=$amt*0.25
@@ -33,11 +33,11 @@ rule "National-Criteria Based on Claims Number - 1"
 	    $insurer.setPercentage("25%")
 end
 	
-rule "National-Criteria Based on Claims Number - 2"
+rule "Axsis-Criteria Based on Claims Number - 2"
 	when
 		$carInfo:CarInsuranceDetails(claims >= 3 , $amt:cost)	
 		$list: ArrayList()
-		$insurer:Insurer(name == "National") from $list
+		$insurer:Insurer(name == "Axsis") from $list
 	then
 	System.out.println("RULE 3")
 	    $amt=$amt*0.22
@@ -45,11 +45,11 @@ rule "National-Criteria Based on Claims Number - 2"
 	    $insurer.setPercentage("22%")
 end   
 
-rule "National-Criteria Based on Claims and Year - 1"
+rule "Axsis-Criteria Based on Claims and Year - 1"
 	when
 		$carInfo:CarInsuranceDetails(claims >= 3 ,manufacturedYear < "2007", $amt:cost)	
 		$list: ArrayList()
-		$insurer:Insurer(name == "National") from $list
+		$insurer:Insurer(name == "Axsis") from $list
 	then
 	System.out.println("RULE 4")
 	    $amt=$amt*0.27
@@ -57,11 +57,11 @@ rule "National-Criteria Based on Claims and Year - 1"
 	    $insurer.setPercentage("27%")
 end 
 
-rule "National-Criteria Based on Cityr - 1"
+rule "Axsis-Criteria Based on Cityr - 1"
 	when
 		$carInfo:CarInsuranceDetails(city == "Delhi", $amt:cost)	
 		$list: ArrayList()
-		$insurer:Insurer(name == "National") from $list
+		$insurer:Insurer(name == "Axsis") from $list
 	then
 	System.out.println("RULE 5")
 	    $amt=$amt*0.20

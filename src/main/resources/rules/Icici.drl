@@ -1,0 +1,64 @@
+import com.project.droolsdemo.models.CarInsuranceDetails;
+import java.lang.*;
+import java.math.BigDecimal;
+import com.project.droolsdemo.models.Insurer;
+ 
+ruleflow-group "default"
+ 
+rule "Icici - Criteria Based on Manufacturing Date"
+lock-on-active 
+salience 10
+dialect "java"
+
+	when
+	    $carInfo:CarInsuranceDetails(manufacturedYear >= "2007" , $amt:cost)
+	    $list: ArrayList()
+    then
+    	System.out.println("RULE 1");
+    	$list.add(new Insurer("Icici",$amt*0.55,"45%"));
+        update($list);   
+end
+
+rule "Icici-Criteria Based on Claims Number - 1"
+salience 9
+	when
+		$carInfo:CarInsuranceDetails(claims >= 1 && <3 , $amt:cost)	
+		$list: ArrayList()
+		$insurer:Insurer(name == "Icici") from $list
+		
+	then
+		System.out.println("RULE 2")
+	    $amt=$amt*0.40
+	   	$insurer.setAmount($amt)
+	   	$insurer.setPercentage("40%")
+	   	
+end
+
+
+rule "Icici-Criteria Based on Claims Number - 2"
+	when
+		$carInfo:CarInsuranceDetails(claims >= 3 , $amt:cost)	
+		$list: ArrayList()
+		$insurer:Insurer(name == "Icici") from $list
+	then
+		System.out.println("RULE 3")
+	    $amt=$amt*0.35
+	    $insurer.setAmount($amt)
+	    $insurer.setPercentage("35%")
+end   
+
+rule "Icici-Criteria Based on Claims and Use - 1"
+	when
+		$carInfo:CarInsuranceDetails(claims >= 3 ,use == "business", $amt:cost)	
+		$list: ArrayList()
+		$insurer:Insurer(name == "Icici") from $list
+	then
+		System.out.println("RULE 4")
+	    $amt=$amt*0.25
+	    $insurer.setAmount($amt)
+	    $insurer.setPercentage("25%")
+end 
+
+
+
+	   
