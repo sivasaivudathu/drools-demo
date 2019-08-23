@@ -57,11 +57,12 @@ public class DroolsDemoApplicationTests {
 	    		System.out.println(insurer.getName()+" : "+ insurer.getAmount()+" : "+insurer.getPercentage());
 	    	});
 	    	
-	    	List<Insurer> result2 = service.insuranceProviders(details,"Bajaj Allianz");
-	    
-	    	result2.forEach(insurer -> {
-	    		System.out.println(insurer.getName()+" : "+ insurer.getAmount()+" : "+insurer.getPercentage());
-	    	});
+		/*
+		 * List<Insurer> result2 = service.insuranceProviders(details,"Bajaj Allianz");
+		 * 
+		 * result2.forEach(insurer -> { System.out.println(insurer.getName()+" : "+
+		 * insurer.getAmount()+" : "+insurer.getPercentage()); });
+		 */
 	    	
 	    }
 

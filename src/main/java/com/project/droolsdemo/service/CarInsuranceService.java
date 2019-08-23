@@ -22,19 +22,18 @@ public class CarInsuranceService {
 	@Autowired
 	InsuranceProviderService providerService;
 	
-	public List<Insurer> getInsurers(CarInsuranceDetails details) {
-		List<Insurer> insurers = getDefaultInsures(details);
-		sortInsurers(insurers);
-		if(isInsurerExists(insurers)) {
-			Insurer topInsurer = insurers.get(0);
-			List<Insurer> secondLevelInsurers = getSecondLevelInsurers(details, topInsurer);
-			secondLevelInsurers.add(topInsurer);
-			return secondLevelInsurers;
-		}
-		return insurers;
+	public List<Insurer> getLeadInsurers(CarInsuranceDetails details) {
+		
+		return getLeadInsures(details);
 	}
 	
-	private List<Insurer> getDefaultInsures(CarInsuranceDetails details){
+	public List<Insurer> getFollowerInsurers(CarInsuranceDetails details,String insurerName) {
+		
+		return getFolowerInsurers(details, insurerName);
+	}
+	
+	
+	private List<Insurer> getLeadInsures(CarInsuranceDetails details){
 		
 		return getInsuranceProviders(details, "default");
 	}
@@ -57,7 +56,7 @@ public class CarInsuranceService {
 		return !insuranceProviders.isEmpty();
 	}
 	
-	private List<Insurer> getSecondLevelInsurers(CarInsuranceDetails details,Insurer insurer){
-		return getInsuranceProviders(details, insurer.getName());
+	private List<Insurer> getFolowerInsurers(CarInsuranceDetails details,String insurerName){
+		return getInsuranceProviders(details, insurerName);
 	}
 }

@@ -67,4 +67,18 @@ rule "TATA-Criteria Based on Claims and Year - 2"
 		System.out.println("RULE 5");
 		$list.remove($insurer)
 end 
-	   
+	  
+
+rule "TATA-Criteria Based on Claims and Gender - 1"
+
+	when
+		$carInfo:CarInsuranceDetails(claims >= 2 ,gender == "Female", $amt:cost)	
+		$list: ArrayList()
+		$insurer:Insurer(name == "Tata") from $list
+	then
+		System.out.println("RULE 6")
+	    $amt=$amt*0.30
+	    $insurer.setAmount($amt)
+	    $insurer.setPercentage("30%")
+end 
+	 

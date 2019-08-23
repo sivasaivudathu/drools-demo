@@ -39,6 +39,30 @@ public class CarInsuranceDetails {
 	private double cost;
 	
 	private int annualMiles;
+	
+	@NotNull
+	private String city;
+	
+	@NotNull
+	private String profession;
+	
+	
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getProfession() {
+		return profession;
+	}
+
+	public void setProfession(String profession) {
+		this.profession = profession;
+	}
 
 	public int getAge() {
 		return age;

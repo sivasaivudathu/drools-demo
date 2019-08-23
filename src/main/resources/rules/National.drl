@@ -57,4 +57,15 @@ rule "National-Criteria Based on Claims and Year - 1"
 	    $insurer.setPercentage("27%")
 end 
 
+rule "National-Criteria Based on Cityr - 1"
+	when
+		$carInfo:CarInsuranceDetails(city == "Delhi", $amt:cost)	
+		$list: ArrayList()
+		$insurer:Insurer(name == "National") from $list
+	then
+	System.out.println("RULE 5")
+	    $amt=$amt*0.20
+	    $insurer.setAmount($amt)
+	    $insurer.setPercentage("20%")
+end 
 	   
