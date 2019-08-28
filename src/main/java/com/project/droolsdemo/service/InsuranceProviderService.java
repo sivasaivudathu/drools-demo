@@ -11,6 +11,7 @@ import org.drools.core.common.InternalAgenda;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.project.droolsdemo.models.CarInsuranceDetails;
@@ -25,6 +26,10 @@ public class InsuranceProviderService {
 
 	@Autowired
 	private KieContainer kContainer;
+	
+	@Autowired
+	@Qualifier("dynamicContainer")
+	private KieContainer dynamicContainer;
 
 	public List<Insurer> insuranceProviders(CarInsuranceDetails details) {
 		
@@ -47,7 +52,6 @@ public List<Insurer> insuranceProviders(CarInsuranceDetails details,String group
 		kieSession.insert(insurerList);
 		kieSession.insert(details);
 		kieSession.getAgenda().getAgendaGroup(groupName).setFocus();
-		//((InternalAgenda) kieSession.getAgenda()).activateRuleFlowGroup(groupName);
 		kieSession.fireAllRules();
 		kieSession.dispose();
 		
@@ -56,6 +60,20 @@ public List<Insurer> insuranceProviders(CarInsuranceDetails details,String group
 	}
 
 
+public List<Insurer> dynamicInsuranceProviders(CarInsuranceDetails details,String groupName) {
+	
+	List<Insurer> insurerList = new ArrayList<>();
+	
+	KieSession kieSession = dynamicContainer.newKieSession();
+	kieSession.insert(insurerList);
+	kieSession.insert(details);
+	kieSession.getAgenda().getAgendaGroup(groupName).setFocus();
+	kieSession.fireAllRules();
+	kieSession.dispose();
+	
+	System.out.println("No. of Insurance Providers :"+insurerList.size());
+	return insurerList;
+}
 
 	
 }
