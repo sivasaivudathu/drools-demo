@@ -37,14 +37,4 @@ public class InsurerController {
 	public List<Insurer> getFollowerInsurers(@RequestBody @Valid  CarInsuranceDetails details,@PathVariable String insurerName){
 		return insuranceService.getFollowerInsurers(details,insurerName);
 	}
-	
-	@PostMapping("/insurers/dynamic")
-	public List<Insurer> getDynamicLeadInsurers(@RequestBody @Valid  CarInsuranceDetails details){
-		return insuranceService.getDynamicLeadInsures(details);
-	}
-	
-	@PostMapping("/insurers/{insurerName}/dynamic")
-	public List<Insurer> getDynamicFollowerInsurers(@RequestBody @Valid  CarInsuranceDetails details,@PathVariable String insurerName){
-		return insuranceService.getDynamicFollowerInsurers(details,insurerName);
-	}
 }

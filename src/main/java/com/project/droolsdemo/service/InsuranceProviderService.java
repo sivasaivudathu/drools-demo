@@ -26,54 +26,20 @@ public class InsuranceProviderService {
 
 	@Autowired
 	private KieContainer kContainer;
-	
-	@Autowired
-	@Qualifier("dynamicContainer")
-	private KieContainer dynamicContainer;
 
-	public List<Insurer> insuranceProviders(CarInsuranceDetails details) {
-		
+	public List<Insurer> insuranceProviders(CarInsuranceDetails details, String groupName) {
+
 		List<Insurer> insurerList = new ArrayList<>();
-		
-		KieSession kieSession = kContainer.newKieSession();
-		kieSession.insert(insurerList);
-		kieSession.insert(details);
-		kieSession.fireAllRules();
-		kieSession.dispose();
-		System.out.println("No. of Insurance Providers :"+insurerList.size());
-		return insurerList;
-	}
-	
-public List<Insurer> insuranceProviders(CarInsuranceDetails details,String groupName) {
-		
-		List<Insurer> insurerList = new ArrayList<>();
-		
+
 		KieSession kieSession = kContainer.newKieSession();
 		kieSession.insert(insurerList);
 		kieSession.insert(details);
 		kieSession.getAgenda().getAgendaGroup(groupName).setFocus();
 		kieSession.fireAllRules();
 		kieSession.dispose();
-		
-		System.out.println("No. of Insurance Providers :"+insurerList.size());
+
+		System.out.println("No. of Insurance Providers :" + insurerList.size());
 		return insurerList;
 	}
 
-
-public List<Insurer> dynamicInsuranceProviders(CarInsuranceDetails details,String groupName) {
-	
-	List<Insurer> insurerList = new ArrayList<>();
-	
-	KieSession kieSession = dynamicContainer.newKieSession();
-	kieSession.insert(insurerList);
-	kieSession.insert(details);
-	kieSession.getAgenda().getAgendaGroup(groupName).setFocus();
-	kieSession.fireAllRules();
-	kieSession.dispose();
-	
-	System.out.println("No. of Insurance Providers :"+insurerList.size());
-	return insurerList;
-}
-
-	
 }
