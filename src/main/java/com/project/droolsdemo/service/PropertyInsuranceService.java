@@ -8,9 +8,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.droolsdemo.models.CarInsuranceDetails;
-import com.project.droolsdemo.propertyinsurance.model.PropertyInsurer;
 import com.project.droolsdemo.propertyinsurance.model.PropertyInsuranceDetails;
+import com.project.droolsdemo.propertyinsurance.model.PropertyInsurer;
 
 /**
  * @author sivasaiv
