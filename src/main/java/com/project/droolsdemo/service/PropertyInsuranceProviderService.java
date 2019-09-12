@@ -4,43 +4,39 @@
 package com.project.droolsdemo.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import org.drools.core.common.InternalAgenda;
+
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.project.droolsdemo.models.CarInsuranceDetails;
-import com.project.droolsdemo.models.Insurer;
+import com.project.droolsdemo.propertyinsurance.model.PropertyInsurer;
+import com.project.droolsdemo.propertyinsurance.model.PropertyInsuranceDetails;
 
 /**
  * @author sivasaiv
  *
  */
 @Service
-public class InsuranceProviderService {
+public class PropertyInsuranceProviderService {
 
 	@Autowired
-	@Qualifier("carinsurance-container")
-	private KieContainer kContainer;
+	@Qualifier("propertyinsurance-container")
+	KieContainer kieContainer;
+	
+	public List<PropertyInsurer> insuranceProviders(PropertyInsuranceDetails details, String groupName) {
 
-	public List<Insurer> insuranceProviders(CarInsuranceDetails details, String groupName) {
+		List<PropertyInsurer> insurerList = new ArrayList<>();
 
-		List<Insurer> insurerList = new ArrayList<>();
-
-		KieSession kieSession = kContainer.newKieSession();
+		KieSession kieSession = kieContainer.newKieSession();
 		kieSession.insert(insurerList);
 		kieSession.insert(details);
 		kieSession.getAgenda().getAgendaGroup(groupName).setFocus();
 		kieSession.fireAllRules();
 		kieSession.dispose();
-
-		System.out.println("No. of Insurance Providers :" + insurerList.size());
 		return insurerList;
 	}
-
 }

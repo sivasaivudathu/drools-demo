@@ -53,7 +53,7 @@ public class CarInsuranceDetails {
 	}
 
 	public void setCity(String city) {
-		this.city = city;
+		this.city = city.toLowerCase();
 	}
 
 	public String getProfession() {
@@ -61,7 +61,7 @@ public class CarInsuranceDetails {
 	}
 
 	public void setProfession(String profession) {
-		this.profession = profession;
+		this.profession = profession.toLowerCase();
 	}
 
 	public int getAge() {
@@ -77,7 +77,7 @@ public class CarInsuranceDetails {
 	}
 
 	public void setGender(String gender) {
-		this.gender = gender;
+		this.gender = gender.toLowerCase();
 	}
 
 	public String getMaritalStatus() {
@@ -85,7 +85,7 @@ public class CarInsuranceDetails {
 	}
 
 	public void setMaritalStatus(String maritalStatus) {
-		this.maritalStatus = maritalStatus;
+		this.maritalStatus = maritalStatus.toLowerCase();
 	}
 
 	public int getDrivingExperience() {
@@ -133,7 +133,7 @@ public class CarInsuranceDetails {
 	}
 
 	public void setType(String type) {
-		this.type = type;
+		this.type = type.toLowerCase();
 	}
 
 	public String getUse() {
@@ -141,7 +141,7 @@ public class CarInsuranceDetails {
 	}
 
 	public void setUse(String use) {
-		this.use = use;
+		this.use = use.toLowerCase();
 	}
 
 	public int getAnnualMiles() {
