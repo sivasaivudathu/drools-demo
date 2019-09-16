@@ -3,10 +3,13 @@
  */
 package com.project.droolsdemo.propertyinsurance.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * @author sivasaiv
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PropertyDetails {
 
 	private String ownershipName;

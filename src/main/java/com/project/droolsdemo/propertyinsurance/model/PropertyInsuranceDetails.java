@@ -3,16 +3,23 @@
  */
 package com.project.droolsdemo.propertyinsurance.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author sivasaiv
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PropertyInsuranceDetails {
-
+    
+	@JsonProperty("InsuredDetails")
 	private InsuredDetails insuredDetails;
 	
+	@JsonProperty("PropertyDetails")
 	private PropertyDetails propertyDetails;
 	
+	@JsonProperty("PropertyDescription")
 	private PropertyDescription propertyDescription;
 
 	public InsuredDetails getInsuredDetails() {
